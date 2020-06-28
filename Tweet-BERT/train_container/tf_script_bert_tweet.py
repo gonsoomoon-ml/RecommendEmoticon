@@ -1,4 +1,5 @@
 
+
 import time
 import random
 import pandas as pd
@@ -316,10 +317,6 @@ if __name__ == '__main__':
     tensorflow_saved_model_path = os.path.join(local_model_dir, 'tensorflow/saved_model/0')
     os.makedirs(tensorflow_saved_model_path, exist_ok=True)
 
-    # Tensorboard Logs 
-    tensorboard_logs_path = os.path.join(local_model_dir, 'tensorboard/')
-    os.makedirs(tensorboard_logs_path, exist_ok=True)
-
     print ("################ Mirrored distributed_strategy ################")
     
     #distributed_strategy = tf.distribute.MirroredStrategy()
@@ -462,9 +459,11 @@ if __name__ == '__main__':
             print('Test history {}'.format(test_history))
             
         # Save the Fine-Yuned Transformers Model as a New "Pre-Trained" Model
+        print("########  Save the Fine-Yuned Transformers Model as a New Pre-Trained Model ##########")
         print('transformer_fine_tuned_model_path {}'.format(transformer_fine_tuned_model_path))   
         model.save_pretrained(transformer_fine_tuned_model_path)
 
         # Save the TensorFlow SavedModel for Serving Predictions
+        print("########  Save the TensorFlow SavedModel for Serving Predictions Model ##########")        
         print('tensorflow_saved_model_path {}'.format(tensorflow_saved_model_path))   
         model.save(tensorflow_saved_model_path, save_format='tf')

@@ -1,4 +1,4 @@
-FROM 763104351884.dkr.ecr.us-east-2.amazonaws.com/tensorflow-training:2.1.1-gpu-py36-cu101-ubuntu18.04
+FROM 763104351884.dkr.ecr.us-west-2.amazonaws.com/tensorflow-training:2.1.1-gpu-py36-cu101-ubuntu18.04
 
 
 RUN pip install transformers==2.8.0
