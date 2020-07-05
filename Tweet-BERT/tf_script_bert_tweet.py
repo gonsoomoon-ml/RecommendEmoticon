@@ -14,9 +14,8 @@ import tensorflow as tf
 #subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'tensorflow==2.1.0'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'transformers==2.8.0'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'sagemaker-tensorflow==2.1.0.1.0.0'])
-subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'smdebug==0.8.0'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'scikit-learn==0.23.1'])
-subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'matplotlib==3.2.1'])
+
 from transformers import DistilBertTokenizer
 from transformers import TFDistilBertForSequenceClassification
 from transformers import TextClassificationPipeline
