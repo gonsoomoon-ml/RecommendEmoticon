@@ -1,4 +1,7 @@
 
+# 이 파일은 아래 소스에서 Label의 5개 --> 10개 변경한 버전 임.
+# https://github.com/data-science-on-aws/workshop/blob/master/06_prepare/preprocess-scikit-text-to-bert.py
+
 
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
@@ -317,3 +320,4 @@ if __name__ == "__main__":
 #     print(os.environ)
 
     process(args)    
+
