@@ -23,10 +23,16 @@ from transformers.configuration_distilbert import DistilBertConfig
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.models import load_model
 
+####################
+# 기존 소스에 변경 사항
 # Define 10 labels
+####################
 CLASSES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
+###################
+# TF 에 입력될 Data Set 생성 함수
 # BERT-related Function
+####################
 def select_data_and_label_from_record(record):
     x = {
         'input_ids': record['input_ids'],
@@ -98,6 +104,9 @@ def file_based_input_dataset_builder(channel,
 
 
 def load_checkpoint_model(checkpoint_path):
+    '''
+    Load the last checkpoint file
+    '''
     import glob
     import os
     
@@ -122,7 +131,11 @@ def load_checkpoint_model(checkpoint_path):
     
     return loaded_model, initial_epoch_number
 
+
 def parse_args():
+    '''
+    커멘드 라인 변수를 읽음. 상당수는 환경 변수의 값을 디폴트로 설정 함
+    '''
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--train_data', 
@@ -226,13 +239,11 @@ if __name__ == '__main__':
     print("################ Environment Variables: ################") 
     pprint.pprint(dict(env_var), width = 1) 
 
-#     print('SM_TRAINING_ENV {}'.format(env_var['SM_TRAINING_ENV']))
-#     sm_training_env_json = json.loads(env_var['SM_TRAINING_ENV'])
-#     is_master = sm_training_env_json['is_master']
+    print('SM_TRAINING_ENV {}'.format(env_var['SM_TRAINING_ENV']))
+    sm_training_env_json = json.loads(env_var['SM_TRAINING_ENV'])
+    is_master = sm_training_env_json['is_master']
 
     print("################ Extract varaibles from Command Args #######################") 
-    is_master = True
-    print('is_master {}'.format(is_master))
         
     train_data = args.train_data
     print('train_data {}'.format(train_data))
@@ -401,6 +412,7 @@ if __name__ == '__main__':
         model.layers[0].trainable = not freeze_bert_layer
         print(model.summary())
 
+        # Validation 이 True 이면 Train and Validation 진행
         if run_validation:
             validation_data_filenames = glob(os.path.join(validation_data, '*.tfrecord'))
             print('validation_data_filenames {}'.format(validation_data_filenames))
@@ -436,6 +448,7 @@ if __name__ == '__main__':
                                       callbacks=callbacks)                
             print(train_history)
 
+        # run_test가 True 이면 진행
         if run_test:
             test_data_filenames = glob(os.path.join(test_data, '*.tfrecord'))
             print('test_data_filenames {}'.format(test_data_filenames))
