@@ -21,7 +21,10 @@ class TweetData(object):
         emojis = list(sorted(set(self.tweets['sentiment'])))
         self.emoji_to_idx = {em: idx for idx, em in enumerate(emojis)}
         self.save_emoji_data()
-#        print(self.emoji_to_idx)
+        
+        print(self.emoji_to_idx)        
+        return self.emoji_to_idx
+
 
     def set_sentimet_label(self, emoji_to_idx):
         # Desc: make dictionary of {emoticon:label}
