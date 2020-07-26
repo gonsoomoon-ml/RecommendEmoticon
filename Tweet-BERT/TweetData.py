@@ -67,9 +67,16 @@ class TweetData(object):
 
     def normalize_text(self, s):
         # Desc: retrun cleaned text
+
+        # Remove words starting with @
+        s = re.sub('@\w*', ' ',s)    
+        
+        # remove punctuation that is not word-internal (e.g., hyphens, apostrophes)        
+        s = re.sub("[^0-9a-zA-Z']+", " ", s)
+
         s = s.lower()
 
-        # remove punctuation that is not word-internal (e.g., hyphens, apostrophes)
+
         s = re.sub('\s\W',' ',s)
         s = re.sub('\W\s',' ',s)
 
