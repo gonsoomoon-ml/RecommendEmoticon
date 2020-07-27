@@ -27,7 +27,8 @@ from tensorflow.keras.models import load_model
 # 기존 소스에 변경 사항
 # Define 10 labels
 ####################
-CLASSES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+# CLASSES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+CLASSES = [0, 1]
 
 ###################
 # TF 에 입력될 Data Set 생성 함수
@@ -319,13 +320,6 @@ if __name__ == '__main__':
     pipe_mode = (pipe_mode_str.find('Pipe') >= 0)
     print('Using pipe_mode: {}'.format(pipe_mode))
  
-    # Model Output 
-    transformer_fine_tuned_model_path = os.path.join(local_model_dir, 'transformers/fine-tuned/')
-    os.makedirs(transformer_fine_tuned_model_path, exist_ok=True)
-
-    # SavedModel Output
-    tensorflow_saved_model_path = os.path.join(local_model_dir, 'tensorflow/saved_model/0')
-    os.makedirs(tensorflow_saved_model_path, exist_ok=True)
 
     print ("################ Mirrored distributed_strategy ################")
     
@@ -469,6 +463,15 @@ if __name__ == '__main__':
                                           callbacks=callbacks)
                                  
             print('Test history {}'.format(test_history))
+
+        # Model Output 
+        transformer_fine_tuned_model_path = os.path.join(local_model_dir, 'transformers/fine-tuned/')
+        os.makedirs(transformer_fine_tuned_model_path, exist_ok=True)
+
+        # SavedModel Output
+        tensorflow_saved_model_path = os.path.join(local_model_dir, 'tensorflow/saved_model/0')
+        os.makedirs(tensorflow_saved_model_path, exist_ok=True)
+            
             
         # Save the Fine-Yuned Transformers Model as a New "Pre-Trained" Model
         print("########  Save the Fine-Yuned Transformers Model as a New Pre-Trained Model ##########")

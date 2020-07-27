@@ -111,7 +111,7 @@ def convert_features_to_tfrecord(inputs,
     tfrecord_writer = tf.io.TFRecordWriter(output_file)
 
     for (input_idx, text_input) in enumerate(inputs):
-        if input_idx % 10000 == 0:
+        if input_idx % 100 == 0:
             print("Writing example %d of %d" % (input_idx, len(inputs)))
 
             bert_features = convert_input(text_input, max_seq_length)
@@ -257,7 +257,7 @@ def parse_args():
         default=False
     )
     parser.add_argument('--max-seq-length', type=int,
-        default=128,
+        default=32,
     )  
     
     return parser.parse_args()
