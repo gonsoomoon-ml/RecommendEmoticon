@@ -1,0 +1,244 @@
+pulling previous image for layer cache... 
+building image... 
+Sending build context to Docker daemon  83.97kB
+Step 1/32 : FROM ubuntu:18.04
+ ---> d27b9ffc5667
+Step 2/32 : LABEL maintainer="Amazon AI"
+ ---> Using cache
+ ---> 3f8b76867a47
+Step 3/32 : LABEL com.amazonaws.sagemaker.capabilities.accept-bind-to-port=true
+ ---> Using cache
+ ---> b70fb3982732
+Step 4/32 : ARG PYTHON=python3
+ ---> Using cache
+ ---> 794c03300cdd
+Step 5/32 : ARG PIP=pip3
+ ---> Using cache
+ ---> 76ac3c206d6d
+Step 6/32 : ARG TFS_SHORT_VERSION=2.0.1
+ ---> Using cache
+ ---> 9e0df0f8e08e
+Step 7/32 : ARG TFS_URL=https://tensorflow-aws.s3-us-west-2.amazonaws.com/${TFS_SHORT_VERSION}/Serving/CPU-WITH-MKL/tensorflow_model_server
+ ---> Using cache
+ ---> ded1731183ea
+Step 8/32 : ENV LANG=C.UTF-8
+ ---> Using cache
+ ---> 7028b5a3d2f8
+Step 9/32 : ENV PYTHONDONTWRITEBYTECODE=1
+ ---> Using cache
+ ---> a22d75476963
+Step 10/32 : ENV PYTHONUNBUFFERED=1
+ ---> Using cache
+ ---> cd81b25a78f3
+Step 11/32 : ENV SAGEMAKER_TFS_VERSION="${TFS_SHORT_VERSION}"
+ ---> Using cache
+ ---> 13a5b2535b88
+Step 12/32 : ENV PATH="$PATH:/sagemaker"
+ ---> Using cache
+ ---> a145c8b0d582
+Step 13/32 : ENV LD_LIBRARY_PATH='/usr/local/lib:$LD_LIBRARY_PATH'
+ ---> Using cache
+ ---> 848ad66ec447
+Step 14/32 : ENV MODEL_BASE_PATH=/models
+ ---> Using cache
+ ---> f08494954b50
+Step 15/32 : ENV MODEL_NAME=model
+ ---> Using cache
+ ---> 9aa94d9e3800
+Step 16/32 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 87cd1d2e2fc2
+Step 17/32 : RUN apt-get update  && apt-get -y install --no-install-recommends     curl     gnupg2     ca-certificates     git     wget     vim     build-essential     zlib1g-dev  && curl -s http://nginx.org/keys/nginx_signing.key | apt-key add -  && echo 'deb http://nginx.org/packages/ubuntu/ bionic nginx' >> /etc/apt/sources.list  && apt-get update  && apt-get -y install --no-install-recommends     nginx     nginx-module-njs     python3     python3-pip     python3-setuptools  && apt-get clean  && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 058143c50d2e
+Step 18/32 : RUN ${PIP} --no-cache-dir install --upgrade pip setuptools
+ ---> Using cache
+ ---> 95ea4a0eaee6
+Step 19/32 : RUN ${PIP} install --no-cache-dir     awscli==1.16.303     cython==0.29.14     falcon==2.0.0     gunicorn==20.0.4     gevent==1.4.0     requests==2.22.0     grpcio==1.26.0     protobuf==3.11.1  && ${PIP} install --no-dependencies --no-cache-dir     tensorflow-serving-api==2.0
+ ---> Using cache
+ ---> 19194559eafd
+Step 20/32 : RUN ${PIP} install --no-cache-dir     tensorflow==2.1.0     transformers==2.8.0
+ ---> Running in c8b758833a9f
+Collecting tensorflow==2.1.0
+  Downloading tensorflow-2.1.0-cp36-cp36m-manylinux2010_x86_64.whl (421.8 MB)
+Collecting transformers==2.8.0
+  Downloading transformers-2.8.0-py3-none-any.whl (563 kB)
+Requirement already satisfied: grpcio>=1.8.6 in /usr/local/lib/python3.6/dist-packages (from tensorflow==2.1.0) (1.26.0)
+Collecting wheel>=0.26; python_version >= "3"
+  Downloading wheel-0.34.2-py2.py3-none-any.whl (26 kB)
+Collecting scipy==1.4.1; python_version >= "3"
+  Downloading scipy-1.4.1-cp36-cp36m-manylinux1_x86_64.whl (26.1 MB)
+Collecting opt-einsum>=2.3.2
+  Downloading opt_einsum-3.2.1-py3-none-any.whl (63 kB)
+Collecting tensorboard<2.2.0,>=2.1.0
+  Downloading tensorboard-2.1.1-py3-none-any.whl (3.8 MB)
+Requirement already satisfied: six>=1.12.0 in /usr/local/lib/python3.6/dist-packages (from tensorflow==2.1.0) (1.15.0)
+Collecting gast==0.2.2
+  Downloading gast-0.2.2.tar.gz (10 kB)
+Collecting keras-applications>=1.0.8
+  Downloading Keras_Applications-1.0.8-py3-none-any.whl (50 kB)
+Collecting astor>=0.6.0
+  Downloading astor-0.8.1-py2.py3-none-any.whl (27 kB)
+Requirement already satisfied: protobuf>=3.8.0 in /usr/local/lib/python3.6/dist-packages (from tensorflow==2.1.0) (3.11.1)
+Collecting tensorflow-estimator<2.2.0,>=2.1.0rc0
+  Downloading tensorflow_estimator-2.1.0-py2.py3-none-any.whl (448 kB)
+Collecting google-pasta>=0.1.6
+  Downloading google_pasta-0.2.0-py3-none-any.whl (57 kB)
+Collecting wrapt>=1.11.1
+  Downloading wrapt-1.12.1.tar.gz (27 kB)
+Collecting absl-py>=0.7.0
+  Downloading absl-py-0.9.0.tar.gz (104 kB)
+Collecting numpy<2.0,>=1.16.0
+  Downloading numpy-1.19.0-cp36-cp36m-manylinux2010_x86_64.whl (14.6 MB)
+Collecting keras-preprocessing>=1.1.0
+  Downloading Keras_Preprocessing-1.1.2-py2.py3-none-any.whl (42 kB)
+Collecting termcolor>=1.1.0
+  Downloading termcolor-1.1.0.tar.gz (3.9 kB)
+Requirement already satisfied: requests in /usr/local/lib/python3.6/dist-packages (from transformers==2.8.0) (2.22.0)
+Collecting boto3
+  Downloading boto3-1.14.19-py2.py3-none-any.whl (128 kB)
+Collecting sacremoses
+  Downloading sacremoses-0.0.43.tar.gz (883 kB)
+Collecting sentencepiece
+  Downloading sentencepiece-0.1.91-cp36-cp36m-manylinux1_x86_64.whl (1.1 MB)
+Collecting tokenizers==0.5.2
+  Downloading tokenizers-0.5.2-cp36-cp36m-manylinux1_x86_64.whl (3.7 MB)
+Collecting dataclasses; python_version < "3.7"
+  Downloading dataclasses-0.7-py3-none-any.whl (18 kB)
+Collecting tqdm>=4.27
+  Downloading tqdm-4.47.0-py2.py3-none-any.whl (66 kB)
+Collecting filelock
+  Downloading filelock-3.0.12-py3-none-any.whl (7.6 kB)
+Collecting regex!=2019.12.17
+  Downloading regex-2020.6.8-cp36-cp36m-manylinux2010_x86_64.whl (660 kB)
+Collecting markdown>=2.6.8
+  Downloading Markdown-3.2.2-py3-none-any.whl (88 kB)
+Collecting google-auth-oauthlib<0.5,>=0.4.1
+  Downloading google_auth_oauthlib-0.4.1-py2.py3-none-any.whl (18 kB)
+Collecting werkzeug>=0.11.15
+  Downloading Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)
+Collecting google-auth<2,>=1.6.3
+  Downloading google_auth-1.18.0-py2.py3-none-any.whl (90 kB)
+Requirement already satisfied: setuptools>=41.0.0 in /usr/local/lib/python3.6/dist-packages (from tensorboard<2.2.0,>=2.1.0->tensorflow==2.1.0) (49.1.0)
+Collecting h5py
+  Downloading h5py-2.10.0-cp36-cp36m-manylinux1_x86_64.whl (2.9 MB)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.6/dist-packages (from requests->transformers==2.8.0) (2020.6.20)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 in /usr/local/lib/python3.6/dist-packages (from requests->transformers==2.8.0) (1.25.9)
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /usr/local/lib/python3.6/dist-packages (from requests->transformers==2.8.0) (3.0.4)
+Requirement already satisfied: idna<2.9,>=2.5 in /usr/local/lib/python3.6/dist-packages (from requests->transformers==2.8.0) (2.8)
+Collecting botocore<1.18.0,>=1.17.19
+  Downloading botocore-1.17.19-py2.py3-none-any.whl (6.3 MB)
+Collecting s3transfer<0.4.0,>=0.3.0
+  Downloading s3transfer-0.3.3-py2.py3-none-any.whl (69 kB)
+Requirement already satisfied: jmespath<1.0.0,>=0.7.1 in /usr/local/lib/python3.6/dist-packages (from boto3->transformers==2.8.0) (0.10.0)
+Collecting click
+  Downloading click-7.1.2-py2.py3-none-any.whl (82 kB)
+Collecting joblib
+  Downloading joblib-0.16.0-py3-none-any.whl (300 kB)
+Collecting importlib-metadata; python_version < "3.8"
+  Downloading importlib_metadata-1.7.0-py2.py3-none-any.whl (31 kB)
+Collecting requests-oauthlib>=0.7.0
+  Downloading requests_oauthlib-1.3.0-py2.py3-none-any.whl (23 kB)
+Collecting pyasn1-modules>=0.2.1
+  Downloading pyasn1_modules-0.2.8-py2.py3-none-any.whl (155 kB)
+Requirement already satisfied: rsa<5,>=3.1.4; python_version >= "3" in /usr/local/lib/python3.6/dist-packages (from google-auth<2,>=1.6.3->tensorboard<2.2.0,>=2.1.0->tensorflow==2.1.0) (3.4.2)
+Collecting cachetools<5.0,>=2.0.0
+  Downloading cachetools-4.1.1-py3-none-any.whl (10 kB)
+Requirement already satisfied: docutils<0.16,>=0.10 in /usr/local/lib/python3.6/dist-packages (from botocore<1.18.0,>=1.17.19->boto3->transformers==2.8.0) (0.15.2)
+Requirement already satisfied: python-dateutil<3.0.0,>=2.1 in /usr/local/lib/python3.6/dist-packages (from botocore<1.18.0,>=1.17.19->boto3->transformers==2.8.0) (2.8.0)
+Collecting zipp>=0.5
+  Downloading zipp-3.1.0-py3-none-any.whl (4.9 kB)
+Collecting oauthlib>=3.0.0
+  Downloading oauthlib-3.1.0-py2.py3-none-any.whl (147 kB)
+Requirement already satisfied: pyasn1<0.5.0,>=0.4.6 in /usr/local/lib/python3.6/dist-packages (from pyasn1-modules>=0.2.1->google-auth<2,>=1.6.3->tensorboard<2.2.0,>=2.1.0->tensorflow==2.1.0) (0.4.8)
+Using legacy setup.py install for gast, since package 'wheel' is not installed.
+Using legacy setup.py install for wrapt, since package 'wheel' is not installed.
+Using legacy setup.py install for absl-py, since package 'wheel' is not installed.
+Using legacy setup.py install for termcolor, since package 'wheel' is not installed.
+Using legacy setup.py install for sacremoses, since package 'wheel' is not installed.
+[91mERROR: tensorflow-serving-api 2.0.0 has requirement tensorflow~=2.0.0, but you'll have tensorflow 2.1.0 which is incompatible.
+ERROR: awscli 1.16.303 has requirement botocore==1.13.39, but you'll have botocore 1.17.19 which is incompatible.
+[0m[91mERROR: awscli 1.16.303 has requirement s3transfer<0.3.0,>=0.2.0, but you'll have s3transfer 0.3.3 which is incompatible.
+[0mInstalling collected packages: wheel, numpy, scipy, opt-einsum, absl-py, zipp, importlib-metadata, markdown, pyasn1-modules, cachetools, google-auth, oauthlib, requests-oauthlib, google-auth-oauthlib, werkzeug, tensorboard, gast, h5py, keras-applications, astor, tensorflow-estimator, google-pasta, wrapt, keras-preprocessing, termcolor, tensorflow, botocore, s3transfer, boto3, regex, click, joblib, tqdm, sacremoses, sentencepiece, tokenizers, dataclasses, filelock, transformers
+    Running setup.py install for absl-py: started
+    Running setup.py install for absl-py: finished with status 'done'
+    Running setup.py install for gast: started
+    Running setup.py install for gast: finished with status 'done'
+    Running setup.py install for wrapt: started
+    Running setup.py install for wrapt: finished with status 'done'
+    Running setup.py install for termcolor: started
+    Running setup.py install for termcolor: finished with status 'done'
+  Attempting uninstall: botocore
+    Found existing installation: botocore 1.13.39
+    Uninstalling botocore-1.13.39:
+      Successfully uninstalled botocore-1.13.39
+  Attempting uninstall: s3transfer
+    Found existing installation: s3transfer 0.2.1
+    Uninstalling s3transfer-0.2.1:
+      Successfully uninstalled s3transfer-0.2.1
+    Running setup.py install for sacremoses: started
+    Running setup.py install for sacremoses: finished with status 'done'
+Successfully installed absl-py-0.9.0 astor-0.8.1 boto3-1.14.19 botocore-1.17.19 cachetools-4.1.1 click-7.1.2 dataclasses-0.7 filelock-3.0.12 gast-0.2.2 google-auth-1.18.0 google-auth-oauthlib-0.4.1 google-pasta-0.2.0 h5py-2.10.0 importlib-metadata-1.7.0 joblib-0.16.0 keras-applications-1.0.8 keras-preprocessing-1.1.2 markdown-3.2.2 numpy-1.19.0 oauthlib-3.1.0 opt-einsum-3.2.1 pyasn1-modules-0.2.8 regex-2020.6.8 requests-oauthlib-1.3.0 s3transfer-0.3.3 sacremoses-0.0.43 scipy-1.4.1 sentencepiece-0.1.91 tensorboard-2.1.1 tensorflow-2.1.0 tensorflow-estimator-2.1.0 termcolor-1.1.0 tokenizers-0.5.2 tqdm-4.47.0 transformers-2.8.0 werkzeug-1.0.1 wheel-0.34.2 wrapt-1.12.1 zipp-3.1.0
+Removing intermediate container c8b758833a9f
+ ---> 4060426e5e46
+Step 21/32 : COPY ./sagemaker /sagemaker
+ ---> 1068fb3737c2
+Step 22/32 : RUN ln -s $(which ${PYTHON}) /usr/local/bin/python
+ ---> Running in 827610df0178
+Removing intermediate container 827610df0178
+ ---> c70ade4d0f06
+Step 23/32 : RUN curl https://tensorflow-aws.s3-us-west-2.amazonaws.com/MKL-Libraries/libiomp5.so -o /usr/local/lib/libiomp5.so
+ ---> Running in 203bf4cf5197
+[91m  % Total    % Received % Xferd  Average Speed   Time    Tim[0m[91me     Ti[0m[91mme  Current
+                 [0m[91m      [0m[91m        [0m[91m  Dload  Upload   Total   Spent   [0m[91m Left  Speed
+[0m[91m  0     0    0  [0m[91m   [0m[91m0  [0m[91m  0     0  [0m[91m    0[0m[91m    [0m[91m  0[0m[91m -[0m[91m-:--:-- --:--:-- -[0m[91m-:--:--  [0m[91m   0[0m[91m100 2056k  100 2056k    0     0  27.8M      0 --:--:-- --:--:-- --:--:-- 27.8M
+[0mRemoving intermediate container 203bf4cf5197
+ ---> 57dd770f1868
+Step 24/32 : RUN curl https://tensorflow-aws.s3-us-west-2.amazonaws.com/MKL-Libraries/libmklml_intel.so -o /usr/local/lib/libmklml_intel.so
+ ---> Running in 1bdf9d7b42a8
+[91m  % Total    % Received % Xferd  Average Speed   Time   [0m[91m Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Spee[0m[91md
+  0[0m[91m     0    0 [0m[91m    0   [0m[91m 0[0m[91m     [0m[91m0     [0m[91m 0     [0m[91m 0 --[0m[91m:--[0m[91m:--[0m[91m --:--:-- --:--:-- [0m[91m    0[0m[91m 19  124M   19 23.9M    0     0  46.7M      0  0:0[0m[91m0:02 --:--:--  0:00:0[0m[91m2 46.6M[0m[91m 71  124M   71 88.5M    0     0  59.4M     [0m[91m 0  0:00:02  0:00:01  0:00:01 59.4M[0m[91m100  124M  100  124M    0     0  64.7M      0  0:00:01  0:00:01 --:--:-- 64.7M
+[0mRemoving intermediate container 1bdf9d7b42a8
+ ---> 0e0539c98121
+Step 25/32 : RUN curl $TFS_URL -o /usr/bin/tensorflow_model_server  && chmod 555 /usr/bin/tensorflow_model_server
+ ---> Running in f74b5a28a232
+[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+               [0m[91m                  Dload  Upload   To[0m[91mtal   Spent    L[0m[91meft  Speed
+  0     0    0     0    0[0m[91m     0      0     [0m[91m 0 --:-[0m[91m-:-- --:--:-- [0m[91m--:--:--     0[0m[91m 14  164M   14 23.[0m[91m9M    0[0m[91m     0  36.0M      0  0:00:0[0m[91m4 --:--:--  0:[0m[91m0[0m[91m0:04 36.0M[0m[91m 38  164M   38 62.3M    0     0  38.0M      0  0[0m[91m:00:04  0:00:01  0[0m[91m:00:03 3[0m[91m8[0m[91m.0M[0m[91m 64  164M   64  106M   [0m[91m 0     0  40.7M   [0m[91m   0  0[0m[91m:00:04  0:00[0m[91m:02  0:00:02 40.7M[0m[91m 92  164M   92  152M    0  [0m[91m   0  42.1[0m[91mM      0  0:[0m[91m00:03  0:0[0m[91m0:03 --:--:--[0m[91m 42.1[0m[91mM[0m[91m100  164M  100  164M    0     0  43.1M      0  0:00:03  0:00:03 --:--:-- 43.0M
+[0mRemoving intermediate container f74b5a28a232
+ ---> 59ad397d2507
+Step 26/32 : EXPOSE 8500 8501
+ ---> Running in 209114b6fe92
+Removing intermediate container 209114b6fe92
+ ---> 00f4c52f0a3a
+Step 27/32 : RUN mkdir -p ${MODEL_BASE_PATH}
+ ---> Running in b9ff4f990c50
+Removing intermediate container b9ff4f990c50
+ ---> 5102cdcd35f4
+Step 28/32 : RUN echo '#!/bin/bash \n\n' > /usr/bin/tf_serving_entrypoint.sh  && echo '/usr/bin/tensorflow_model_server --port=8500 --rest_api_port=8501 --model_name=${MODEL_NAME} --model_base_path=${MODEL_BASE_PATH}/${MODEL_NAME} "$@"' >> /usr/bin/tf_serving_entrypoint.sh  && chmod +x /usr/bin/tf_serving_entrypoint.sh
+ ---> Running in 91a2f149b019
+Removing intermediate container 91a2f149b019
+ ---> 50182a295df0
+Step 29/32 : ADD https://raw.githubusercontent.com/aws/aws-deep-learning-containers-utils/master/deep_learning_container.py /usr/local/bin/deep_learning_container.py
+
+ ---> fffeff75a9a3
+Step 30/32 : RUN chmod +x /usr/local/bin/deep_learning_container.py
+ ---> Running in 7e0e71b4b939
+Removing intermediate container 7e0e71b4b939
+ ---> 6664ae8b2286
+Step 31/32 : RUN curl https://aws-dlc-licenses.s3.amazonaws.com/tensorflow-2.0.1/license.txt -o /license.txt
+ ---> Running in 9cc2fab5d884
+[91m  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                          [0m[91m       Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     [0m[91m0    0     0      0      0 --:--:--[0m[91m --:--:[0m[91m--[0m[91m --:--[0m[91m:--    [0m[91m 0[0m[91m  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0[0m[91m100 11957  100 11957    0     0  30270      0 --:--:-- --:--:-- --:--:-- 30270
+[0mRemoving intermediate container 9cc2fab5d884
+ ---> 9d236f793f44
+Step 32/32 : CMD ["/usr/bin/tf_serving_entrypoint.sh"]
+ ---> Running in 246ca46bbe68
+Removing intermediate container 246ca46bbe68
+ ---> 66feb15d8b7a
+[Warning] One or more build-args [TFS_VERSION] were not consumed
+Successfully built 66feb15d8b7a
+Successfully tagged sagemaker-tensorflow-serving:2.0.0-cpu
+Successfully tagged sagemaker-tensorflow-serving:2.0-cpu
