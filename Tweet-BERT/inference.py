@@ -19,7 +19,7 @@ import requests
 from transformers import DistilBertTokenizer
 
 tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
-max_seq_length = 128
+max_seq_length = 32
 
 def input_handler(data, context):
     """ Pre-process request input before it is sent to TensorFlow Serving REST API

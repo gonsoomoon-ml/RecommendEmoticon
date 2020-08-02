@@ -27,8 +27,7 @@ from tensorflow.keras.models import load_model
 # 기존 소스에 변경 사항
 # Define 10 labels
 ####################
-# CLASSES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-CLASSES = [0, 1]
+CLASSES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 ###################
 # TF 에 입력될 Data Set 생성 함수
