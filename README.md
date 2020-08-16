@@ -1,1 +1,73 @@
-# RecommendEmoticon
+
+# Tweet의 감정상태에 따른 이모티콘 추천
+
+이 워크샵은 **"데이타 준비" --> "데이타 전처리" --> "모델 빌드" --> "모델 학습" --> "모델 배포 및 추론"** 의 단계로 구성이 됩니다. 아래 OPTION의 부분은 필수는 아니고, 조금더 내용을 이해 하는데 도움이 됩니다.
+
+### Prepare Tweet Data
+- 1.1.Prepare-Tweet-Data.ipynb (1분 소요)<br>
+    - Tweet 입력 데이터 클린징 및 S3에 업로드
+    - [Module 1.0]
+        - Option: [Module 1.5]- BERT Input 변환 과정 확인
+        
+### Preprocess Tweet Data
+- OPTION
+    - 2.0.Option-Scratch-Convert-Input-TFRecord.ipynb (소요시간 약 1분)
+        - 이 노트북은 Text 입력 데이타가 최종적으로 사용할 TF Record 형태로 변환하는 과정을 보여줌
+        - 만일 이 과정이 익숙하지 않다면 실행을 권고 함
+
+
+
+- 2.1.Convert-Input-TFRecord.ipynb (6분 소요) <br>
+    - Input Text --> BERT Feature Vector 로 변환 --> TF Record로 변환
+    - SageMaker Processor Job으로 2개의 인스턴스를 사용하여 위 스크립트를 실행
+    - Train, Validation, Test의 각각 2개의 TF Records 파일이 S3에 저장됨.
+
+### Build a Train Script
+- 3.1.Write-Train-Script.ipynb (1분 소요)
+    - 학습에 사용할 스크립트를 작성 합니다.
+- OPTION
+    - 3.2.Train-LocalMode.ipynb
+        - 작성한 학습 스크립트를 Local Mode를 사용하여 로직 테스트 합니다.
+
+### Train a Model
+학습은 아래 두가지 옵션이 있습니다. 
+- BYOS (Bring Your Own Script)로서 보통 Script Mode 로 합니다. SageMaker의 Built-in Container (예: Tensorflow)에 학습 스크립트를 제공하고, 이후에 데이타를 입력(S3) 으로 제공하고, 출력으로서 모델 아티펙트를 S3에 저장 됩니다.
+- BYOC (Bring Your Own Container)로서 실행환경의 Docker Image (학습 스크립트 + 환경:텐서플로우) 를 가져와서, 데이타를 입력(S3) 으로 제공하고, 출력으로서 모델 아티펙트를 S3에 저장 됩니다.
+
+**위의 두 방식 중에 어느 한가지를 사용하여 학습을 하세요.**
+- 선택 1: BYOS
+    - 3.3.Train-BYOS-ScriptMode.ipynb     
+        - 스크립트 모드로 학습 합니다.
+- 선택 2: BYOC
+    - 3.4.1.Make-Train-Image-ECR.ipynb
+        - 로컬 노트북에서 Docker Image를 만들고, 이를 ECR(Elastic Container Registry)에 등록 합니다.
+    - 3.4.2-Train-BYOC.ipynb    
+        - ECR에 등록된 Docker Image를 가져와서 학습 합니다.
+    
+### Depoly a Model
+배포를 하기 위해서는 기본적으로 세자기 항목이 필요 합니다.
+- (1) 모델 아티펙트
+    - 이 부분은 위의 학습의 산출물로서 S3에 저장이 되어 있습니다.
+- (2) 추론 (Inference) image 
+    - 위의 모델 아티펙트가 동작하기 위한 실행 환경을 제공 합니다. 예로 Tensorflow Serving 같은 것이 있습니다.
+- (3) 추론 스크립트 (예: inference.py)
+    - 모델 아티펙트에 "입력" 을 넣고, 이후에 모델 아티펙트를 통해서 "출력" 이 나오는데, "입력" 에 대한 사전처리와 "출력" 에 대한 사후 처리에 대한 스크립트 입니다.
+    
+이 과정에서는 두가지의 Inference Image 및 추론 스크립트 제공 방식을 사용 합니다.
+- 방식 (1) 
+    - Built-in Inference Image - Tensorflow Serving 2.0, 
+    - 추론 스크립트 : Endpoint 기반에 tensorflow serving predictor를 생성하여 사용
+- 방식 (2)
+    - Custom Inference Image 생성
+    - 추론 스크립트 : SageMaker Model를 생성시에 추론 스크립트 제공 (inference.py)
+
+**위의 두 방식 중에 어느 한가지를 사용하여 배포를 하세요.**
+- 선택 1: Built-in Inference Image
+    - 4.1.Deploy-Built-In-TFS-Image.ipynb     
+        - Tensorflow Serving 2.0 이미지를 가지고 배포 합니다.
+- 선택 2: Custom Inference Image
+    - 4.2.1.Make-Custom-Inference-Image-ECR.ipynb
+        - 로컬 노트북에서 Docker Image를 만들고, 이를 ECR(Elastic Container Registry)에 등록 합니다.
+    - 4.2.2.Deploy-Custom-Inference-Image.ipynb
+        - ECR에 등록된 Docker Image를 가져와서 학습 합니다.
+
