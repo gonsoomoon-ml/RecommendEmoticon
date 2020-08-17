@@ -94,3 +94,14 @@ Kubernetics/Kubeflow 에서 SageMaker Cloud Cluster로 학습을 요청하여, �
 **[관련 가이드](Tweet-BERT/install_EKS_Kubeflow/README.md)** 참조 하세요.
 
 ![Fig.6.1.Kubenetics-Busting-Sagemaker](Tweet-BERT/img/Fig.6.1.Kubenetics-Busting-Sagemaker.png)
+
+
+---
+## Reference
+- Chris Fregly, Antje Barth, Book, Data Science on AWS, https://www.oreilly.com/library/view/data-science-on/9781492079385/
+    - Source: Data Science on Amazon Web Services
+        - https://github.com/data-science-on-aws/workshop
+        
+- Kubernetes and Amazon SageMaker for machine learning — best of both worlds
+https://towardsdatascience.com/kubernetes-and-amazon-sagemaker-for-machine-learning-best-of-both-worlds-part-1-37580689a92f
+        
