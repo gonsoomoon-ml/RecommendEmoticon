@@ -1,7 +1,16 @@
 
 # Tweet의 감정상태에 따른 이모티콘 추천
 
-이 워크샵은 **"데이타 준비" --> "데이타 전처리" --> "모델 빌드" --> "모델 학습" --> "모델 배포 및 추론"** 의 단계로 구성이 됩니다. 아래 OPTION의 부분은 필수는 아니고, 조금더 내용을 이해 하는데 도움이 됩니다.
+이 워크샵은 크게 세가지 과정으로 되어 있습니다.
+
+- 기본 과정 (ML 파이프라인)
+    - "데이타 준비" --> "데이타 전처리" --> "모델 빌드" --> "모델 학습" --> "모델 배포 및 추론"
+- OPTION 1
+    - API GATEWAY 통해서 추론하기
+- OPTION 2
+    - Kubernetics/Kubeflow --> SageMaker Traing Job
+
+## 기본 과정 (ML 파이프라인)
 
 ### Prepare Tweet Data
 - 1.1.Prepare-Tweet-Data.ipynb (1분 소요)<br>
@@ -71,3 +80,17 @@
     - 4.2.2.Deploy-Custom-Inference-Image.ipynb
         - ECR에 등록된 Docker Image를 가져와서 학습 합니다.
 
+## OPTION 1: API GATEWAY 통해서 추론하기
+기존에는 추론을 SageMaker Notebook에서 했습니다. 이번에는 API GATEWAY를 이용하여 외부 웹 페이지에서 HTTP POST Call 을 하여 추론 결과를 얻습니다. 아래 그림과 같이 구현 합니다.
+
+![Fig.4.3.APIGATEWAYflow](Tweet-BERT/img/Fig.4.3.APIGATEWAY_flow.png)
+아래 노트북의 가이드를 따라 하시면 됩니다.
+- 4.3.API_GATEWAY.ipynb
+
+## OPTION 2: Kubernetics/Kubeflow --> SageMaker Traing Job
+
+Kubernetics/Kubeflow 에서 SageMaker Cloud Cluster로 학습을 요청하여, 학습의 결과인 모델 아티펙트를 가지고 SageMaker Cloud Cluster에서 추론을 하는 과정 입니다.
+자세한 가이드는 
+**[관련 가이드](Tweet-BERT/install_EKS_Kubeflow/README.md)** 참조 하세요.
+
+![Fig.6.1.Kubenetics-Busting-Sagemaker](Tweet-BERT/img/Fig.6.1.Kubenetics-Busting-Sagemaker.png)
