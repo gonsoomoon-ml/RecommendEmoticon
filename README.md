@@ -10,6 +10,10 @@
 - OPTION 2
     - Kubernetics/Kubeflow --> SageMaker Traing Job
 
+## 솔류션 아키텍쳐
+![solutions-architecture](Tweet-BERT/img/solutions-architecture.png)
+
+
 ## 기본 과정 (ML 파이프라인)
 
 ### Prepare Tweet Data
