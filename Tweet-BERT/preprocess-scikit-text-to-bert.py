@@ -111,21 +111,19 @@ def convert_features_to_tfrecord(inputs,
     tfrecord_writer = tf.io.TFRecordWriter(output_file)
 
     for (input_idx, text_input) in enumerate(inputs):
-        if input_idx % 100 == 0:
-            print("Writing example %d of %d" % (input_idx, len(inputs)))
 
-            bert_features = convert_input(text_input, max_seq_length)
-        
-            tfrecord_features = collections.OrderedDict()
-            
-            tfrecord_features['input_ids'] = tf.train.Feature(int64_list=tf.train.Int64List(value=bert_features.input_ids))
-            tfrecord_features['input_mask'] = tf.train.Feature(int64_list=tf.train.Int64List(value=bert_features.input_mask))
-            tfrecord_features['segment_ids'] = tf.train.Feature(int64_list=tf.train.Int64List(value=bert_features.segment_ids))
-            tfrecord_features['label_ids'] = tf.train.Feature(int64_list=tf.train.Int64List(value=[bert_features.label_id]))
+        bert_features = convert_input(text_input, max_seq_length)
 
-            tfrecord = tf.train.Example(features=tf.train.Features(feature=tfrecord_features))
-            
-            tfrecord_writer.write(tfrecord.SerializeToString())
+        tfrecord_features = collections.OrderedDict()
+
+        tfrecord_features['input_ids'] = tf.train.Feature(int64_list=tf.train.Int64List(value=bert_features.input_ids))
+        tfrecord_features['input_mask'] = tf.train.Feature(int64_list=tf.train.Int64List(value=bert_features.input_mask))
+        tfrecord_features['segment_ids'] = tf.train.Feature(int64_list=tf.train.Int64List(value=bert_features.segment_ids))
+        tfrecord_features['label_ids'] = tf.train.Feature(int64_list=tf.train.Int64List(value=[bert_features.label_id]))
+
+        tfrecord = tf.train.Example(features=tf.train.Features(feature=tfrecord_features))
+
+        tfrecord_writer.write(tfrecord.SerializeToString())
 
     tfrecord_writer.close()
 
@@ -286,26 +284,27 @@ def process(args):
     p = multiprocessing.Pool(num_cpus)
     p.map(transform_tsv_to_tfrecord, input_files)
 
+    ## 수정 부분
+    
     print("********** Listing tf-record files ***************")        
     print('Listing contents of {}'.format(args.output_data))
-    dirs_output = os.listdir(args.output_data)
+    train_tfrecord_path = '{}/bert/train'.format(args.output_data)
+    dirs_output = os.listdir(train_tfrecord_path)
     for file in dirs_output:
         print(file)
 
-    print('Listing contents of {}'.format(train_data))
-    dirs_output = os.listdir(train_data)
+    print('Listing contents of {}'.format(args.output_data))
+    validation_data_tfrecord_path = '{}/bert/validation'.format(args.output_data)
+    dirs_output = os.listdir(validation_data_tfrecord_path)
     for file in dirs_output:
         print(file)
 
-    print('Listing contents of {}'.format(validation_data))
-    dirs_output = os.listdir(validation_data)
+    print('Listing contents of {}'.format(args.output_data))
+    test_data_tfrecord_path = '{}/bert/test'.format(args.output_data)
+    dirs_output = os.listdir(test_data_tfrecord_path)
     for file in dirs_output:
         print(file)
 
-    print('Listing contents of {}'.format(test_data))
-    dirs_output = os.listdir(test_data)
-    for file in dirs_output:
-        print(file)
 
     print('Complete')
     
