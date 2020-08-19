@@ -1,7 +1,20 @@
 
 # Tweet의 감정상태에 따른 이모티콘 추천
 
-이 워크샵은 크게 세가지 과정으로 되어 있습니다.
+![business-background](Tweet-BERT/img/business-background.png)
+
+
+## 솔류션 아키텍쳐
+![solutions-architecture](Tweet-BERT/img/solutions-architecture.png)
+
+## 사용된 기술들 (Techniques)
+![techniques-used](Tweet-BERT/img/techniques-used.png)
+
+## 모델 추천 결과
+
+![result-recommend-emoticon](Tweet-BERT/img/result-recommend-emoticon.png)
+
+## 이 워크샵은 크게 세가지 과정으로 되어 있습니다.
 
 - **기본 과정 (ML 파이프라인)**
     - "데이타 준비" --> "데이타 전처리" --> "모델 빌드" --> "모델 학습" --> "모델 배포 및 추론"
@@ -11,19 +24,10 @@
     - Kubernetics/Kubeflow --> SageMaker Traing Job
 
 
-- Git의 많은 부분의 소스 코드는 아래 Git에서 가져왔습니다. 참고 하세요.
+- **Git의 많은 부분의 소스 코드는 아래 Git에서 가져왔습니다. 참고 하세요.**
     - Chris Fregly, Antje Barth, Book, Data Science on AWS, 
     - [Source: Data Science on Amazon Web Services](https://github.com/data-science-on-aws/workshop)
 
-## 솔류션 아키텍쳐
-![solutions-architecture](Tweet-BERT/img/solutions-architecture.png)
-
-## 사용된 기술들 (Techniques)
-![techniques-used](Tweet-BERT/img/techniques-used.png)
-
-## 결과
-
-![result-recommend-emoticon](Tweet-BERT/img/result-recommend-emoticon.png)
 
 ## 기본 과정 (ML 파이프라인)
 
