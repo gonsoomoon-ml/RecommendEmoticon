@@ -14,6 +14,10 @@
 
 ![result-recommend-emoticon](Tweet-BERT/img/result-recommend-emoticon.png)
 
+## [중요] SageMaker Notebook Instance를 생성 가이드
+- [노트북 생성 방법](Tweet-BERT/install_EKS_Kubeflow/0.0.Prerequisite.ipynb)
+
+
 ## 이 워크샵은 크게 세가지 과정으로 되어 있습니다.
 
 - **기본 과정 (ML 파이프라인)**
